@@ -1,11 +1,17 @@
 import { useForm } from "react-hook-form";
 import { NavLink, useNavigate } from "react-router-dom";
 import { GrGoogle } from "react-icons/gr";
+import { useContext } from "react";
+import { AuthContext } from "../../Provider/AuthProvider/AuthProvider";
+import toast from "react-hot-toast";
 
 
 const Login = () => {
 
+    const { LoginGeneral, GoogleLogin } = useContext(AuthContext);
+  
     const navigate = useNavigate();
+   
   const {
     register,
     formState: { errors },
@@ -15,41 +21,44 @@ const Login = () => {
     const onSubmit = (data) => {
         const email = data.loginEmail;
         const password = data.loginPassword;
-        console.log(email, password)
+        
     
-        // LoginGeneral(email, password)
-        //   .then((result) => {
-        //     toast.success("Login Successfull");
-        //     navigate("/");
-        //   })
-        //   .catch((error) => {
-        //     console.error(error);
-        //   });
+        LoginGeneral(email, password)
+          .then((result) => {
+            toast.success("Login Successfull");
+            navigate("/");
+          })
+          .catch((error) => {
+            console.error(error);
+          });
       };
 
       const handleGoogle = () => {
 
-        console.log('hocce')
-        // GoogleLogin()
-        //   .then((result) => {
-        //     const userInfo = {
-        //       name: result.user?.displayName,
-        //       email: result.user?.email,
-        //       image: result.user?.photoURL,
-        //       role: 'user'
-        //     };
+        
+        GoogleLogin()
+          .then((result) => {
+            const userInfo = {
+              name: result.user?.displayName,
+              email: result.user?.email,
+              image: result.user?.photoURL,
+              role: 'user'
+            };
+
+
+            toast.success("Login Successfull");
+                navigate("/");
     
-        //     axios
-        //       .post(`${import.meta.env.VITE_URL}/users`, userInfo)
-        //       .then((res) => {
-        //         // console.log(res.data)
-        //         toast.success("Login Successfull");
-        //         navigate("/");
-        //       });
-        //   })
-        //   .catch((error) => {
-        //     console.error(error);
-        //   });
+            // axios
+            //   .post(`${import.meta.env.VITE_URL}/users`, userInfo)
+            //   .then((res) => {
+            //     // console.log(res.data)
+                
+            //   });
+          })
+          .catch((error) => {
+            console.error(error);
+          });
       };
     
     return (

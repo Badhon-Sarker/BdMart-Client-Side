@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
 
@@ -11,7 +12,7 @@ const Navbar = () => {
     <div className="mt-2">
       <div className="navbar bg-base-100">
         <div className="flex-1">
-          <a className="btn btn-ghost text-xl font-semibold">BdMart</a>
+          <NavLink to={'/'}><p className="btn btn-ghost text-xl font-semibold">BdMart</p></NavLink>
         </div>
         <div className="flex-none gap-2">
           <div>

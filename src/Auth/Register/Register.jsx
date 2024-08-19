@@ -4,13 +4,16 @@ import { IoEye } from "react-icons/io5";
 import { IoEyeOffSharp } from "react-icons/io5";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../Provider/AuthProvider/AuthProvider";
+import toast from "react-hot-toast";
+
 
 const Register = () => {
     const [showEye, setShowEye] = useState(false);
   const [passErr, setPassErr] = useState([]);
   
 
-  const data = useContext(AuthContext)
+  const navigate = useNavigate();
+  const { Register, updateUser } = useContext(AuthContext);
   
 
 
@@ -45,34 +48,37 @@ const Register = () => {
       return setPassErr("Password must have Lowercase");
     }
 
-    console.log(email, password, name, image)
 
-    // Register(email, password)
-    //   .then((result) => {
-    //     updateUser(name, image)
-    //       .then((result) => {
-    //         const userInfo = {
-    //           name: name,
-    //           email: email,
-    //           image: image,
-    //           role: "user",
-    //         };
-    //         axios
-    //           .post(`${import.meta.env.VITE_URL}/users`, userInfo)
-    //           .then((res) => {
-    //             if (res.data.insertedId) {
-    //               toast.success("User has been created");
-    //               navigate("/");
-    //             }
-    //           });
-    //       })
-    //       .catch((error) => {
-    //         console.log(error);
-    //       });
-    //   })
-    //   .catch((error) => {
-    //     console.error(error);
-    //   });
+    Register(email, password)
+      .then((result) => {
+        updateUser(name, image)
+          .then((result) => {
+
+
+            toast.success("User has been created");
+                  navigate("/");
+
+            const userInfo = {
+              name: name,
+              email: email,
+              image: image,
+              role: "user",
+            };
+            // axios
+            //   .post(`${import.meta.env.VITE_URL}/users`, userInfo)
+            //   .then((res) => {
+            //     if (res.data.insertedId) {
+            //       
+            //     }
+            //   });
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
     return (
