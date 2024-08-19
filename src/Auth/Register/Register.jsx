@@ -2,12 +2,16 @@ import { useForm } from "react-hook-form";
 import { NavLink, useNavigate } from "react-router-dom";
 import { IoEye } from "react-icons/io5";
 import { IoEyeOffSharp } from "react-icons/io5";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../Provider/AuthProvider/AuthProvider";
 
 const Register = () => {
     const [showEye, setShowEye] = useState(false);
   const [passErr, setPassErr] = useState([]);
-  const [disable, setDisable] = useState(true)
+  
+
+  const data = useContext(AuthContext)
+  
 
 
   const handleEye = () => {
