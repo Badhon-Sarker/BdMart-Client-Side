@@ -1,18 +1,33 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
+import { AuthContext } from "../../Provider/AuthProvider/AuthProvider";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
+  const { user, Logout } = useContext(AuthContext);
 
-    const handleSubmit = (e) =>{
-        e.preventDefault();
-        const search = e.target.search.value;
-        console.log(search)
-    }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const search = e.target.search.value;
+    console.log(search);
+  };
+
+  const handleLogout = () =>{
+    Logout()
+      .then((result) => {
+        toast.success("Logout Successful");
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
   return (
     <div className="mt-2">
       <div className="navbar bg-base-100">
         <div className="flex-1">
-          <NavLink to={'/'}><p className="btn btn-ghost text-xl font-semibold">BdMart</p></NavLink>
+          <NavLink to={"/"}>
+            <p className="btn btn-ghost text-xl font-semibold">BdMart</p>
+          </NavLink>
         </div>
         <div className="flex-none gap-2">
           <div>
@@ -35,34 +50,40 @@ const Navbar = () => {
             </form>
           </div>
           <div className="dropdown dropdown-end">
-            <div
-              tabIndex={0}
-              role="button"
-              className="btn btn-ghost btn-circle avatar"
-            >
-              <div className="w-10 rounded-full">
-                <img
-                  alt="Tailwind CSS Navbar component"
-                  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                />
+            {user ? (
+              <div>
+                <div
+                  tabIndex={0}
+                  role="button"
+                  className="btn btn-ghost btn-circle avatar"
+                >
+                  <div className="w-10 rounded-full">
+                    <img
+                      alt="img"
+                      src={user?.photoURL}
+                    />
+                  </div>
+                </div>
+                <ul
+                  tabIndex={0}
+                  className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+                >
+                  <li>
+                    <p className="font-bold">{user?.displayName}</p>
+                  </li>
+                 
+                  <li onClick={handleLogout}>
+                    <p>Logout</p>
+                  </li>
+                </ul>
               </div>
-            </div>
-            <ul
-              tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
-            >
-              <li>
-                <a className="justify-between">
-                  Profile
-                </a>
-              </li>
-              <li>
-                <a>Settings</a>
-              </li>
-              <li>
-                <a>Logout</a>
-              </li>
-            </ul>
+            ) : (
+              <div>
+                <NavLink to={"/login"} className="btn">
+                  Log In
+                </NavLink>
+              </div>
+            )}
           </div>
         </div>
       </div>
