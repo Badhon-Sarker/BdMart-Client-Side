@@ -1,20 +1,37 @@
 import React from "react";
 
 const Navbar = () => {
+
+    const handleSubmit = (e) =>{
+        e.preventDefault();
+        const search = e.target.search.value;
+        console.log(search)
+    }
   return (
     <div className="mt-2">
       <div className="navbar bg-base-100">
         <div className="flex-1">
-          <a className="btn btn-ghost text-xl">daisyUI</a>
+          <a className="btn btn-ghost text-xl font-semibold">BdMart</a>
         </div>
         <div className="flex-none gap-2">
-          <div className="form-control">
-            <input
-              type="text"
-              placeholder="Search"
-              className="input input-bordered w-24 md:w-auto"
-            />
-            
+          <div>
+            <form onSubmit={handleSubmit}>
+              <div className="flex justify-center items-center gap-2">
+                <div>
+                  <label>
+                    <input
+                      type="text"
+                      name="search"
+                      placeholder="Search here"
+                      className="input rounded-l-xl w-full"
+                    />
+                  </label>
+                </div>
+                <div>
+                  <input className="btn" type="submit" value="Search" />
+                </div>
+              </div>
+            </form>
           </div>
           <div className="dropdown dropdown-end">
             <div
@@ -36,7 +53,6 @@ const Navbar = () => {
               <li>
                 <a className="justify-between">
                   Profile
-                  <span className="badge">New</span>
                 </a>
               </li>
               <li>
