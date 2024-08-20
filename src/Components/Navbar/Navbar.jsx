@@ -23,7 +23,7 @@ const Navbar = () => {
   }
   return (
     <div className="mt-2">
-      <div className="navbar bg-base-100">
+      <div className="navbar bg-gray-200 mb-5 rounded-lg">
         <div className="flex-1">
           <NavLink to={"/"}>
             <p className="btn btn-ghost text-xl font-semibold">BdMart</p>
