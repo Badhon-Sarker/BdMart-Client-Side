@@ -31,7 +31,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/search/:query",
-        element: <Search></Search>,
+        element: <PrivateRoutes><Search></Search></PrivateRoutes>,
       }
     ],
   },
