@@ -1,18 +1,20 @@
 import React, { useContext } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Navigate, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Provider/AuthProvider/AuthProvider";
 import toast from "react-hot-toast";
 
 const Navbar = () => {
   const { user, Logout } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const search = e.target.search.value;
-    console.log(search);
+    navigate(`/search/${search}`)
+    // Navigate(`/search/${search}`);
   };
 
-  const handleLogout = () =>{
+  const handleLogout = () => {
     Logout()
       .then((result) => {
         toast.success("Logout Successful");
@@ -20,7 +22,7 @@ const Navbar = () => {
       .catch((error) => {
         console.error(error);
       });
-  }
+  };
   return (
     <div className="mt-2">
       <div className="navbar bg-gray-200 mb-5 rounded-lg">
@@ -58,10 +60,7 @@ const Navbar = () => {
                   className="btn btn-ghost btn-circle avatar"
                 >
                   <div className="w-10 rounded-full">
-                    <img
-                      alt="img"
-                      src={user?.photoURL}
-                    />
+                    <img alt="img" src={user?.photoURL} />
                   </div>
                 </div>
                 <ul
@@ -71,7 +70,7 @@ const Navbar = () => {
                   <li>
                     <p className="font-bold">{user?.displayName}</p>
                   </li>
-                 
+
                   <li onClick={handleLogout}>
                     <p>Logout</p>
                   </li>

@@ -9,6 +9,8 @@ import Login from "./Auth/Login/Login";
 import Register from "./Auth/Register/Register";
 import AuthProvider from "./Provider/AuthProvider/AuthProvider";
 import { Toaster } from "react-hot-toast";
+import PrivateRoutes from "./PrivateRoutes/PrivateRoutes";
+import Search from "./Search/Search";
 
 const router = createBrowserRouter([
   {
@@ -17,7 +19,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home></Home>,
+        element: <PrivateRoutes><Home></Home></PrivateRoutes>,
       },
       {
         path: "/login",
@@ -27,6 +29,10 @@ const router = createBrowserRouter([
         path: "/register",
         element: <Register></Register>,
       },
+      {
+        path: "/search/:query",
+        element: <Search></Search>,
+      }
     ],
   },
 ]);
